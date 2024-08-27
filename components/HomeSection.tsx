@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion'
-import { ChevronDown, Code, Zap, Globe } from 'lucide-react'
+import { ChevronDown, Code, Zap, Globe, Monitor } from 'lucide-react'
 import Link from 'next/link'
+
 
 export default function HomeSection() {
   const services = [
     { icon: Code, title: 'Web Development' },
     { icon: Zap, title: 'Mobile Apps' },
-    { icon: Globe, title: 'Cloud Solutions' },
+    { icon: Globe, title: 'Consultation & IT Solutions' },
+    {icon: Monitor, title: 'Desktop Apps'}
   ]
 
   return (

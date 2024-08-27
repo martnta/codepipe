@@ -9,7 +9,7 @@ export default function AboutSection() {
           <div>
             <p className="text-lg mb-6">
               CodePipe is a cutting-edge software development company specializing in creating robust, scalable, and
-              innovative solutions for businesses of all sizes. Our team of expert developers, designers, and project
+              innovative solutions for businesses of all sizes. As per our  motto `Your dream our teamwork`, Our team of expert developers, designers, and project
               managers work tirelessly to transform your ideas into reality.
             </p>
             <p className="text-lg">
