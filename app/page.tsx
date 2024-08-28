@@ -32,7 +32,7 @@ export default function Home() {
   }, [setActiveSection]);
 
   return (
-    <div className="min-h-screen p-5">
+    <div className="min-h-screen">
       <HomeSection />
       <AboutSection />
       <ServicesSection />
