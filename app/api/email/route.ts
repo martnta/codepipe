@@ -142,6 +142,3 @@ export async function POST(req: any) {
   }
 }
 
-export const config = {
-  runtime: 'edge',
-};
