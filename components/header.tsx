@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { useActiveSection } from '@/app/ActiveSection';
+import Link from 'next/link';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -15,10 +16,11 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-opacity-80 bg-gray-900 backdrop-blur-sm">
-      <div className="container mx-auto px-4 sm:px-6">
+      <div className="container mx-auto px-4 py-6 sm:px-6">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <Image src="/logo.png" alt="CodePipe Logo" width={120} height={32} />
+            <Link href={'/'} className='text-purple-400 font-bold' >CodePipe</Link>
+{       /*     <Image src="/logo.png" alt="CodePipe Logo" width={120} height={32} />*/}
           </div>
           <nav className="hidden md:block">
             <ul className="flex space-x-8">

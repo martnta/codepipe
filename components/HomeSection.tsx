@@ -1,19 +1,19 @@
 import { motion } from 'framer-motion'
-import { ChevronDown, Code, Zap, Globe, Monitor } from 'lucide-react'
+import { ChevronDown, Code, Smartphone, Globe, Monitor } from 'lucide-react'
 import Link from 'next/link'
 
 
 export default function HomeSection() {
   const services = [
     { icon: Code, title: 'Web Development' },
-    { icon: Zap, title: 'Mobile Apps' },
+    { icon: Smartphone, title: 'Mobile Apps' },
     { icon: Globe, title: 'Consultation & IT Solutions' },
     {icon: Monitor, title: 'Desktop Apps'}
   ]
 
   return (
     <section id="home" className="min-h-screen flex flex-col justify-center snap-start bg-gradient-to-br from-gray-900 to-gray-800 text-white">
-      <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 py-12 sm:py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
             <motion.h1

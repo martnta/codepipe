@@ -1,16 +1,60 @@
-import { useState } from 'react'
+'use client'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
-
+import Confetti from 'react-confetti'
+import { CheckCircleIcon, XCircleIcon } from 'lucide-react'
 export default function ContactSection() {
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [subject, setSubject] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [showConfetti, setShowConfetti] = useState(false)
+  const confettiRef = useRef<any>(null)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    // Here you would typically handle the form submission
-    // For this example, we'll just set the submitted state
-    setIsSubmitted(true)
+  useEffect(() => {
+    if (isSubmitted) {
+        setShowConfetti(true)
+        setTimeout(() => {
+            setShowConfetti(false)
+            setIsSubmitted(false)
+        }, 5000)
+    }
+}, [isSubmitted])
+
+//submitting form data
+const handleSubmit = async (e: any) => {
+  e.preventDefault()
+  setIsSubmitting(true)
+  setError(null)
+
+  try {
+      const response = await fetch('/api/email', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name,subject ,email, message }),
+      })
+
+      if (response.ok) {
+          setIsSubmitted(true)
+          setName('')
+          setEmail('')
+          setMessage('')
+          setSubject('')
+      } else {
+          setError('Something went wrong. Please try again later.')
+      }
+  } catch (err) {
+      setError('Something went wrong. Please try again later.')
+  } finally {
+      setIsSubmitting(false)
   }
+}
 
   return (
     <section id="contact" className="min-h-screen flex items-center justify-center snap-start bg-gradient-to-br from-purple-900 via-gray-900 to-gray-800 text-white relative overflow-hidden">
@@ -66,6 +110,7 @@ export default function ContactSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-8 rounded-lg shadow-lg"
           >
+            
             {isSubmitted ? (
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -73,6 +118,7 @@ export default function ContactSection() {
                 transition={{ duration: 0.5 }}
                 className="text-center py-8"
               >
+              {showConfetti && <Confetti ref={confettiRef} />}
                 <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
                 <h3 className="text-2xl font-semibold mb-2">Thank You!</h3>
                 <p>Your message has been sent successfully. We`ll get back to you soon.</p>
@@ -89,6 +135,8 @@ export default function ContactSection() {
                     className="w-full px-3 py-2 bg-white bg-opacity-20 border border-gray-300 border-opacity-50 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-300"
                     required
                     placeholder="Your name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
                 <div>
@@ -101,6 +149,22 @@ export default function ContactSection() {
                     className="w-full px-3 py-2 bg-white bg-opacity-20 border border-gray-300 border-opacity-50 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-300"
                     required
                     placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="subject" className="block mb-2 text-sm font-medium">
+                    Subject
+                  </label>
+                  <input
+                    type="subject"
+                    id="subject"
+                    className="w-full px-3 py-2 bg-white bg-opacity-20 border border-gray-300 border-opacity-50 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-300"
+                    required
+                    placeholder="your subject"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
                   />
                 </div>
                 <div>
@@ -113,19 +177,34 @@ export default function ContactSection() {
                     className="w-full px-3 py-2 bg-white bg-opacity-20 border border-gray-300 border-opacity-50 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-400 text-white placeholder-gray-300"
                     required
                     placeholder="Your message here..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                   ></textarea>
                 </div>
                 <motion.button
                   type="submit"
+                  disabled={isSubmitting}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-full px-4 py-2 text-white bg-purple-500 bg-opacity-80 rounded-md hover:bg-opacity-100 focus:outline-none focus:ring-2 focus:ring-purple-400 focus:ring-opacity-50 flex items-center justify-center transition duration-300"
                 >
                   <Send className="w-5 h-5 mr-2" />
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </motion.button>
               </form>
             )}
+               {error && (
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5 }}
+                        transition={{ duration: 0.5 }}
+                        className="flex items-center justify-center bg-red-100 rounded-lg p-4 mb-8 shadow-lg"
+                    >
+                        <XCircleIcon className="w-6 h-6 text-red-500 mr-2" />
+                        <span>{error}</span>
+                    </motion.div>
+                )}
           </motion.div>
         </div>
       </div>

@@ -10,10 +10,12 @@ export default function PortfolioSection() {
     { name: 'All', projects: [
       { title: 'Resume builder', image: '/placeholder.svg?height=300&width=400', category: 'Web' },
       { title: 'Digital healthpassport', image: '/chutch1.jpg?height=300&width=400', category: 'Mobile' },
-      { title: 'Loan management system', image: '/code.png?height=300&width=400', category: 'Web' },
-      { title: 'Social Media Analytics', image: '/employee.png?height=300&width=400', category: 'Desktop' },
+      { title: 'Garage management system', image: '/garage.png?height=300&width=400', category: 'Web' },
+      { title: 'Social Media Analytics', image: '/analytics.png?height=300&width=400', category: 'Desktop' },
       { title: 'PipePay', image: '/logo.png?height=300&width=400', category: 'Mobile' },
       { title: 'Educational Platform', image: '/class.png?height=300&width=400', category: 'Web' },
+      { title: 'Hivematers portfolio', image: '/class.png?height=300&width=400', category: 'Web' },
+      { title: 'Hivemasters monitoring system', image: '/class.png?height=300&width=400', category: 'Web' },
     ]},
     { name: 'Web', projects: [] },
     { name: 'Mobile', projects: [] },
@@ -48,7 +50,7 @@ export default function PortfolioSection() {
                   `w-full rounded-lg py-2.5 text-sm font-medium leading-5 transition-all duration-300
                   ${selected
                     ? 'bg-purple-500 text-white shadow'
-                    : 'text-gray-300 hover:bg-white/[0.12] hover:text-white'
+                    : 'text-gray-300 hover:bg-cyan-500/[0.12] hover:text-white'
                   }`
                 }
               >
@@ -98,4 +100,4 @@ export default function PortfolioSection() {
       </div>
     </section>
   )
-}
+} 
